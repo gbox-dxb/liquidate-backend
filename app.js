@@ -17,6 +17,19 @@ app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
 
+// Global APP_ENV Response Injector
+app.use((req, res, next) => {
+    const originalJson = res.json;
+    res.json = function (data) {
+        if (data && typeof data === 'object' && !Array.isArray(data)) {
+            // Priority: Request Body > Query Params > Server Variable > Default
+            data.APP_ENV = req.body?.APP_ENV || req.query?.APP_ENV || process.env.APP_ENV || 'demo';
+        }
+        return originalJson.call(this, data);
+    };
+    next();
+});
+
 // Routes
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/trade', tradeRoutes);
