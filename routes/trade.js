@@ -2,33 +2,34 @@ import express from 'express';
 const router = express.Router();
 
 import { tradeController } from '../controllers/_index.js';
+import { tradeMiddleware } from '../middlewares/_index.js';
 
 // Order routes
-router.post('/order', tradeController.newOrder);
-router.put('/order', tradeController.modifyOrder);
-router.delete('/order', tradeController.cancelOrder);
-router.delete('/order/all', tradeController.cancelAllOpenOrders);
+router.post('/order', tradeMiddleware.orderValidation, tradeController.newOrder);
+router.put('/order', tradeMiddleware.orderValidation, tradeController.modifyOrder);
+router.delete('/order', tradeMiddleware.orderValidation, tradeController.cancelOrder);
+router.delete('/order/all', tradeMiddleware.orderValidation, tradeController.cancelAllOpenOrders);
 
 // Query routes
-router.get('/order', tradeController.queryOrder);
-router.get('/orders/open', tradeController.queryOpenOrders);
-router.get('/orders/all', tradeController.queryAllOrders);
+router.get('/order', tradeMiddleware.queryValidation, tradeController.queryOrder);
+router.get('/orders/open', tradeMiddleware.queryValidation, tradeController.queryOpenOrders);
+router.get('/orders/all', tradeMiddleware.queryValidation, tradeController.queryAllOrders);
 
 // Account/Risk routes
-router.get('/risk', tradeController.getPositionRisk);
-router.get('/account', tradeController.getAccountInformation);
-router.get('/balance', tradeController.getAccountBalance);
+router.get('/risk', tradeMiddleware.accountValidation, tradeController.getPositionRisk);
+router.get('/account', tradeMiddleware.accountValidation, tradeController.getAccountInformation);
+router.get('/balance', tradeMiddleware.accountValidation, tradeController.getAccountBalance);
 
 // Config routes
-router.post('/leverage', tradeController.changeInitialLeverage);
-router.post('/margin-type', tradeController.changeMarginType);
-router.post('/position-mode', tradeController.changePositionMode);
-router.get('/position-mode', tradeController.getCurrentPositionMode);
+router.post('/leverage', tradeMiddleware.configValidation, tradeController.changeInitialLeverage);
+router.post('/margin-type', tradeMiddleware.configValidation, tradeController.changeMarginType);
+router.post('/position-mode', tradeMiddleware.configValidation, tradeController.changePositionMode);
+router.get('/position-mode', tradeMiddleware.configValidation, tradeController.getCurrentPositionMode);
 
 // Info routes
-router.get('/income', tradeController.getIncomeHistory);
-router.get('/funding-rate', tradeController.getFundingRateHistory);
-router.get('/exchange-info', tradeController.getExchangeInformation);
+router.get('/income', tradeMiddleware.infoValidation, tradeController.getIncomeHistory);
+router.get('/funding-rate', tradeMiddleware.infoValidation, tradeController.getFundingRateHistory);
+router.get('/exchange-info', tradeMiddleware.infoValidation, tradeController.getExchangeInformation);
 
 const trade = router;
 export { trade };
