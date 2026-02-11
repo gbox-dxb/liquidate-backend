@@ -1,2 +1,2 @@
-export { authRoutes } from './auth.js';
-export { tradeRoutes } from './trade.js';
+export { auth } from './auth.js';
+export { trade } from './trade.js';

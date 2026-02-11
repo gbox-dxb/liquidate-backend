@@ -1,1 +1,1 @@
-export * as exchangeService from './exchangeService.js';
+export { exchangeService } from './exchangeService.js';

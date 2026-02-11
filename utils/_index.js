@@ -1,2 +1,2 @@
 export { apiClient } from './apiClient.js';
-export * as logger from './logger.js';
+export { logger } from './logger.js';

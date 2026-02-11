@@ -1,2 +1,2 @@
-export * as firebaseConfig from './config.js';
-export * as userHelpers from './userHelpers.js';
+export { config } from './config.js';
+export { userHelpers } from './userHelpers.js';

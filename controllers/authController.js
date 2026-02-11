@@ -12,7 +12,7 @@ export const sessionStore = new Map();
 /**
  * Register a new user
  */
-export const register = async (req, res, next) => {
+const register = async (req, res, next) => {
     try {
         const { name, email, password } = req.body;
 
@@ -47,7 +47,7 @@ export const register = async (req, res, next) => {
 /**
  * Login user
  */
-export const login = async (req, res, next) => {
+const login = async (req, res, next) => {
     try {
         const { email, password } = req.body;
 
@@ -91,7 +91,7 @@ export const login = async (req, res, next) => {
 /**
  * Reset password
  */
-export const resetPassword = async (req, res, next) => {
+const resetPassword = async (req, res, next) => {
     try {
         const { email, newPassword } = req.body;
 
@@ -118,3 +118,12 @@ export const resetPassword = async (req, res, next) => {
         next(error);
     }
 };
+
+const authController = {
+    sessionStore,
+    register,
+    login,
+    resetPassword
+};
+
+export { authController };

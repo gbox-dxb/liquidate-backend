@@ -1,2 +1,2 @@
-export * as authController from './authController.js';
-export * as tradeController from './tradeController.js';
+export { authController } from './authController.js';
+export { tradeController } from './tradeController.js';

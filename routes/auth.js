@@ -1,7 +1,7 @@
 import express from 'express';
 import { body } from 'express-validator';
 import { authController } from '../controllers/_index.js';
-import { validate } from '../middlewares/_index.js';
+import { validationMiddleware } from '../middlewares/_index.js';
 
 const router = express.Router();
 
@@ -18,7 +18,7 @@ router.post(
         body('password')
             .isLength({ min: 6 })
             .withMessage('Password must be at least 6 characters long'),
-        validate
+        validationMiddleware
     ],
     authController.register
 );
@@ -33,7 +33,7 @@ router.post(
     [
         body('email').isEmail().withMessage('Valid email is required'),
         body('password').notEmpty().withMessage('Password is required'),
-        validate
+        validationMiddleware
     ],
     authController.login
 );
@@ -50,10 +50,10 @@ router.post(
         body('newPassword')
             .isLength({ min: 6 })
             .withMessage('New password must be at least 6 characters long'),
-        validate
+        validationMiddleware
     ],
     authController.resetPassword
 );
 
-const authRoutes = router;
-export { authRoutes };
+const auth = router;
+export { auth };

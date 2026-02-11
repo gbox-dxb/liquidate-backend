@@ -2,14 +2,11 @@ import axios from 'axios';
 import crypto from 'crypto';
 import { logger } from './_index.js';
 
-/**
- * Common Axios client for all exchange requests
- */
-const apiClient = axios.create({
+const apiClientInstance = axios.create({
     timeout: 10000,
 });
 
-apiClient.interceptors.request.use((config) => {
+apiClientInstance.interceptors.request.use((config) => {
     logger.info(`Request: ${config.method.toUpperCase()} ${config.url}`);
     return config;
 }, (error) => {
@@ -17,7 +14,7 @@ apiClient.interceptors.request.use((config) => {
     return Promise.reject(error);
 });
 
-apiClient.interceptors.response.use((response) => {
+apiClientInstance.interceptors.response.use((response) => {
     logger.info(`Response: ${response.status} from ${response.config.url}`);
     return response.data;
 }, (error) => {
@@ -27,11 +24,10 @@ apiClient.interceptors.response.use((response) => {
     return Promise.reject(error);
 });
 
-/**
- * Signature helper for Binance (HMAC SHA256)
- */
 export const signBinance = (queryString, secret) => {
     return crypto.createHmac('sha256', secret).update(queryString).digest('hex');
 };
+
+const apiClient = apiClientInstance;
 
 export { apiClient };

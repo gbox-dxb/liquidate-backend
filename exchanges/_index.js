@@ -1,3 +1,3 @@
-export * as binance from './binance.exchange.js';
-export * as bybit from './bybit.exchange.js';
-export * as mexc from './mexc.exchange.js';
+export { binanceExchange } from './binance.exchange.js';
+export { bybitExchange } from './bybit.exchange.js';
+export { mexcExchange } from './mexc.exchange.js';

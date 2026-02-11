@@ -1,6 +1,6 @@
-import logger from '../utils/logger.js';
+import { logger } from '../utils/_index.js';
 
-export const errorHandler = (err, req, res, next) => {
+const errorHandler = (err, req, res, next) => {
     const status = err.status || 500;
     const message = err.message || 'Internal Server Error';
 
@@ -15,3 +15,5 @@ export const errorHandler = (err, req, res, next) => {
         }
     });
 };
+
+export { errorHandler };
