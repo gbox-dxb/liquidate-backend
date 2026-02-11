@@ -1,6 +1,6 @@
 import axios from 'axios';
 import crypto from 'crypto';
-import logger from './logger.js';
+import { logger } from './_index.js';
 
 /**
  * Common Axios client for all exchange requests
@@ -34,4 +34,4 @@ export const signBinance = (queryString, secret) => {
     return crypto.createHmac('sha256', secret).update(queryString).digest('hex');
 };
 
-export default apiClient;
+export { apiClient };

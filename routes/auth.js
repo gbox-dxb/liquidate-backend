@@ -1,7 +1,7 @@
 import express from 'express';
 import { body } from 'express-validator';
-import * as authController from '../controllers/authController.js';
-import { validate } from '../middlewares/validationMiddleware.js';
+import { authController } from '../controllers/_index.js';
+import { validate } from '../middlewares/_index.js';
 
 const router = express.Router();
 
@@ -55,4 +55,5 @@ router.post(
     authController.resetPassword
 );
 
-export default router;
+const authRoutes = router;
+export { authRoutes };

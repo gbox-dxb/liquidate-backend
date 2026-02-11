@@ -1,8 +1,4 @@
-import * as binance from "../exchanges/binance.exchange.js";
-import * as mexc from "../exchanges/mexc.exchange.js";
-import * as bybit from "../exchanges/bybit.exchange.js";
-
-const exchanges = { binance, mexc, bybit };
+import * as exchanges from "../exchanges/_index.js";
 
 const getExchange = (exchangeType) => {
     const exchange = exchanges[exchangeType.toLowerCase()];

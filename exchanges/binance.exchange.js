@@ -1,4 +1,4 @@
-import apiClient, { signBinance } from '../utils/apiClient.js';
+import { apiClient, signBinance } from '../utils/apiClient.js';
 import dotenv from 'dotenv';
 
 dotenv.config();

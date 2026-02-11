@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { sessionStore } from '../controllers/authController.js';
+import { authController } from '../controllers/_index.js';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your_super_secret_key';
 const SESSION_INACTIVITY_LIMIT = 5 * 60 * 1000; // 5 minutes
@@ -23,7 +23,7 @@ export const authenticate = (req, res, next) => {
         const decoded = jwt.verify(token, JWT_SECRET);
 
         // 2. Check Session/Inactivity Store
-        const session = sessionStore.get(token);
+        const session = authController.sessionStore.get(token);
         if (!session) {
             return res.status(401).json({
                 success: false,
@@ -35,7 +35,7 @@ export const authenticate = (req, res, next) => {
         const timeSinceLastActivity = currentTime - session.lastActivity;
 
         if (timeSinceLastActivity > SESSION_INACTIVITY_LIMIT) {
-            sessionStore.delete(token); // Cleanup
+            authController.sessionStore.delete(token); // Cleanup
             return res.status(401).json({
                 success: false,
                 message: 'Session expired due to inactivity'

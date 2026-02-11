@@ -1,5 +1,5 @@
 import express from 'express';
-import * as tradeController from '../controllers/tradeController.js';
+import { trade as tradeController } from '../controllers/_index.js';
 
 const router = express.Router();
 
@@ -30,4 +30,5 @@ router.get('/income', tradeController.getIncomeHistory);
 router.get('/funding-rate', tradeController.getFundingRateHistory);
 router.get('/exchange-info', tradeController.getExchangeInformation);
 
-export default router;
+const tradeRoutes = router;
+export { tradeRoutes };
