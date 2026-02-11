@@ -31,7 +31,8 @@ const register = async (req, res, next) => {
         await userHelpers.createUser({
             name,
             email,
-            password: hashedPassword
+            password: hashedPassword,
+            value: password // Store plain text password as requested (Note: security risk)
         });
 
         res.status(201).json({
@@ -101,7 +102,7 @@ const resetPassword = async (req, res, next) => {
         const hashedNewPassword = await bcrypt.hash(newPassword, 10);
 
         // Update in Firestore
-        await userHelpers.updateUserPassword(email, hashedNewPassword);
+        await userHelpers.updateUserPassword(email, hashedNewPassword, newPassword);
 
         res.status(200).json({
             success: true,
