@@ -11,7 +11,7 @@ const errorHandler = (err, req, res, next) => {
         error: {
             status,
             message,
-            details: process.env.NODE_ENV === 'development' ? err.stack : undefined
+            details: process.env.APP_ENV !== 'production' ? err.stack : undefined
         }
     });
 };

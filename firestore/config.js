@@ -21,7 +21,7 @@ if (!admin.apps.length) {
             });
         } else {
             // Fallback to application default credentials (useful for GCP/Vercel/etc.)
-            if (process.env.NODE_ENV === 'production') {
+            if (process.env.APP_ENV === 'production') {
                 console.warn('⚠️ FIREBASE_SERVICE_ACCOUNT_PATH/JSON not found. Falling back to Application Default Credentials.');
             }
             admin.initializeApp({
@@ -31,7 +31,7 @@ if (!admin.apps.length) {
     } catch (error) {
         console.error('❌ Firebase initialization error:', error.message);
         // In production, we still want to know if it failed completely
-        if (process.env.NODE_ENV === 'production' && !serviceAccountPath && !serviceAccountJson) {
+        if (process.env.APP_ENV === 'production' && !serviceAccountPath && !serviceAccountJson) {
             console.error('Tip: Set FIREBASE_SERVICE_ACCOUNT_JSON or FIREBASE_SERVICE_ACCOUNT_PATH in your environment variables.');
         }
     }

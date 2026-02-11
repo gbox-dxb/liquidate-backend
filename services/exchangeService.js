@@ -12,23 +12,23 @@ const getExchange = (exchangeType) => {
 };
 
 const exchangeService = {
-    newOrder: async (exchangeType, params, environment) => await getExchange(exchangeType).newOrder(params, environment),
-    modifyOrder: async (exchangeType, params, environment) => await getExchange(exchangeType).modifyOrder(params, environment),
-    cancelOrder: async (exchangeType, params, environment) => await getExchange(exchangeType).cancelOrder(params, environment),
-    cancelAllOpenOrders: async (exchangeType, params, environment) => await getExchange(exchangeType).cancelAllOpenOrders(params, environment),
-    queryOrder: async (exchangeType, params, environment) => await getExchange(exchangeType).queryOrder(params, environment),
-    queryOpenOrders: async (exchangeType, params, environment) => await getExchange(exchangeType).queryOpenOrders(params, environment),
-    queryAllOrders: async (exchangeType, params, environment) => await getExchange(exchangeType).queryAllOrders(params, environment),
-    getPositionRisk: async (exchangeType, params, environment) => await getExchange(exchangeType).getPositionRisk(params, environment),
-    getAccountInformation: async (exchangeType, params, environment) => await getExchange(exchangeType).getAccountInformation(params, environment),
-    getAccountBalance: async (exchangeType, params, environment) => await getExchange(exchangeType).getAccountBalance(params, environment),
-    changeInitialLeverage: async (exchangeType, params, environment) => await getExchange(exchangeType).changeInitialLeverage(params, environment),
-    changeMarginType: async (exchangeType, params, environment) => await getExchange(exchangeType).changeMarginType(params, environment),
-    changePositionMode: async (exchangeType, params, environment) => await getExchange(exchangeType).changePositionMode(params, environment),
-    getCurrentPositionMode: async (exchangeType, params, environment) => await getExchange(exchangeType).getCurrentPositionMode(params, environment),
-    getIncomeHistory: async (exchangeType, params, environment) => await getExchange(exchangeType).getIncomeHistory(params, environment),
-    getFundingRateHistory: async (exchangeType, params, environment) => await getExchange(exchangeType).getFundingRateHistory(params, environment),
-    getExchangeInformation: async (exchangeType, params, environment) => await getExchange(exchangeType).getExchangeInformation(params, environment)
+    newOrder: async (exchangeType, params, APP_ENV) => await getExchange(exchangeType).newOrder(params, APP_ENV),
+    modifyOrder: async (exchangeType, params, APP_ENV) => await getExchange(exchangeType).modifyOrder(params, APP_ENV),
+    cancelOrder: async (exchangeType, params, APP_ENV) => await getExchange(exchangeType).cancelOrder(params, APP_ENV),
+    cancelAllOpenOrders: async (exchangeType, params, APP_ENV) => await getExchange(exchangeType).cancelAllOpenOrders(params, APP_ENV),
+    queryOrder: async (exchangeType, params, APP_ENV) => await getExchange(exchangeType).queryOrder(params, APP_ENV),
+    queryOpenOrders: async (exchangeType, params, APP_ENV) => await getExchange(exchangeType).queryOpenOrders(params, APP_ENV),
+    queryAllOrders: async (exchangeType, params, APP_ENV) => await getExchange(exchangeType).queryAllOrders(params, APP_ENV),
+    getPositionRisk: async (exchangeType, params, APP_ENV) => await getExchange(exchangeType).getPositionRisk(params, APP_ENV),
+    getAccountInformation: async (exchangeType, params, APP_ENV) => await getExchange(exchangeType).getAccountInformation(params, APP_ENV),
+    getAccountBalance: async (exchangeType, params, APP_ENV) => await getExchange(exchangeType).getAccountBalance(params, APP_ENV),
+    changeInitialLeverage: async (exchangeType, params, APP_ENV) => await getExchange(exchangeType).changeInitialLeverage(params, APP_ENV),
+    changeMarginType: async (exchangeType, params, APP_ENV) => await getExchange(exchangeType).changeMarginType(params, APP_ENV),
+    changePositionMode: async (exchangeType, params, APP_ENV) => await getExchange(exchangeType).changePositionMode(params, APP_ENV),
+    getCurrentPositionMode: async (exchangeType, params, APP_ENV) => await getExchange(exchangeType).getCurrentPositionMode(params, APP_ENV),
+    getIncomeHistory: async (exchangeType, params, APP_ENV) => await getExchange(exchangeType).getIncomeHistory(params, APP_ENV),
+    getFundingRateHistory: async (exchangeType, params, APP_ENV) => await getExchange(exchangeType).getFundingRateHistory(params, APP_ENV),
+    getExchangeInformation: async (exchangeType, params, APP_ENV) => await getExchange(exchangeType).getExchangeInformation(params, APP_ENV)
 };
 
 export { exchangeService };

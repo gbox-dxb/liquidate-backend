@@ -15,8 +15,8 @@ const getCredentials = () => ({
     apiSecret: process.env.BINANCE_API_SECRET
 });
 
-const sendRequest = async (method, path, params = {}, environment = 'demo', isPublic = false) => {
-    const baseUrl = BASE_URLS[environment] || BASE_URLS.demo;
+const sendRequest = async (method, path, params = {}, APP_ENV = 'demo', isPublic = false) => {
+    const baseUrl = BASE_URLS[APP_ENV] || BASE_URLS.demo;
     const fullPath = `${API_VERSION}${path}`;
 
     if (isPublic) {
@@ -41,23 +41,23 @@ const sendRequest = async (method, path, params = {}, environment = 'demo', isPu
 };
 
 const binanceExchange = {
-    newOrder: async (params, environment) => await sendRequest('POST', '/order', params, environment),
-    modifyOrder: async (params, environment) => await sendRequest('PUT', '/order', params, environment),
-    cancelOrder: async (params, environment) => await sendRequest('DELETE', '/order', params, environment),
-    cancelAllOpenOrders: async (params, environment) => await sendRequest('DELETE', '/allOpenOrders', params, environment),
-    queryOrder: async (params, environment) => await sendRequest('GET', '/order', params, environment),
-    queryOpenOrders: async (params, environment) => await sendRequest('GET', '/openOrders', params, environment),
-    queryAllOrders: async (params, environment) => await sendRequest('GET', '/allOrders', params, environment),
-    getPositionRisk: async (params, environment) => await sendRequest('GET', '/positionRisk', params, environment),
-    getAccountInformation: async (params, environment) => await sendRequest('GET', '/account', params, environment),
-    getAccountBalance: async (params, environment) => await sendRequest('GET', '/balance', params, environment),
-    changeInitialLeverage: async (params, environment) => await sendRequest('POST', '/leverage', params, environment),
-    changeMarginType: async (params, environment) => await sendRequest('POST', '/marginType', params, environment),
-    changePositionMode: async (params, environment) => await sendRequest('POST', '/positionSide/dual', params, environment),
-    getCurrentPositionMode: async (params, environment) => await sendRequest('GET', '/positionSide/dual', params, environment),
-    getIncomeHistory: async (params, environment) => await sendRequest('GET', '/income', params, environment),
-    getFundingRateHistory: async (params, environment) => await sendRequest('GET', '/fundingRate', params, environment),
-    getExchangeInformation: async (params, environment) => await sendRequest('GET', '/exchangeInfo', params, environment, true)
+    newOrder: async (params, APP_ENV) => await sendRequest('POST', '/order', params, APP_ENV),
+    modifyOrder: async (params, APP_ENV) => await sendRequest('PUT', '/order', params, APP_ENV),
+    cancelOrder: async (params, APP_ENV) => await sendRequest('DELETE', '/order', params, APP_ENV),
+    cancelAllOpenOrders: async (params, APP_ENV) => await sendRequest('DELETE', '/allOpenOrders', params, APP_ENV),
+    queryOrder: async (params, APP_ENV) => await sendRequest('GET', '/order', params, APP_ENV),
+    queryOpenOrders: async (params, APP_ENV) => await sendRequest('GET', '/openOrders', params, APP_ENV),
+    queryAllOrders: async (params, APP_ENV) => await sendRequest('GET', '/allOrders', params, APP_ENV),
+    getPositionRisk: async (params, APP_ENV) => await sendRequest('GET', '/positionRisk', params, APP_ENV),
+    getAccountInformation: async (params, APP_ENV) => await sendRequest('GET', '/account', params, APP_ENV),
+    getAccountBalance: async (params, APP_ENV) => await sendRequest('GET', '/balance', params, APP_ENV),
+    changeInitialLeverage: async (params, APP_ENV) => await sendRequest('POST', '/leverage', params, APP_ENV),
+    changeMarginType: async (params, APP_ENV) => await sendRequest('POST', '/marginType', params, APP_ENV),
+    changePositionMode: async (params, APP_ENV) => await sendRequest('POST', '/positionSide/dual', params, APP_ENV),
+    getCurrentPositionMode: async (params, APP_ENV) => await sendRequest('GET', '/positionSide/dual', params, APP_ENV),
+    getIncomeHistory: async (params, APP_ENV) => await sendRequest('GET', '/income', params, APP_ENV),
+    getFundingRateHistory: async (params, APP_ENV) => await sendRequest('GET', '/fundingRate', params, APP_ENV),
+    getExchangeInformation: async (params, APP_ENV) => await sendRequest('GET', '/exchangeInfo', params, APP_ENV, true)
 };
 
 export { binanceExchange };
