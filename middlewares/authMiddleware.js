@@ -1,5 +1,7 @@
 import jwt from 'jsonwebtoken';
+import { body } from 'express-validator';
 import { authController } from '../controllers/_index.js';
+import { validationMiddleware } from './validationMiddleware.js';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your_super_secret_key';
 const SESSION_INACTIVITY_LIMIT = 5 * 60 * 1000; // 5 minutes
@@ -55,8 +57,34 @@ const authenticate = (req, res, next) => {
     }
 };
 
+const registerValidation = [
+    body('name').notEmpty().withMessage('Name is required'),
+    body('email').isEmail().withMessage('Valid email is required'),
+    body('password')
+        .isLength({ min: 6 })
+        .withMessage('Password must be at least 6 characters long'),
+    validationMiddleware
+];
+
+const loginValidation = [
+    body('email').isEmail().withMessage('Valid email is required'),
+    body('password').notEmpty().withMessage('Password is required'),
+    validationMiddleware
+];
+
+const resetPasswordValidation = [
+    body('email').isEmail().withMessage('Valid email is required'),
+    body('newPassword')
+        .isLength({ min: 6 })
+        .withMessage('New password must be at least 6 characters long'),
+    validationMiddleware
+];
+
 const authMiddleware = {
-    authenticate
+    authenticate,
+    registerValidation,
+    loginValidation,
+    resetPasswordValidation
 };
 
 export { authMiddleware };
