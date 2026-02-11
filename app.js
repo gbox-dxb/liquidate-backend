@@ -3,7 +3,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
-import tradeRoutes from './routes/tradeRoutes.js';
+import routes from './routes/index.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 
 dotenv.config();
@@ -18,7 +18,7 @@ app.use(morgan('dev'));
 app.use(express.json());
 
 // Routes
-app.use('/api/v1/trade', tradeRoutes);
+app.use('/api/v1/trade', routes);
 
 // Health check
 app.get('/health', (req, res) => {
