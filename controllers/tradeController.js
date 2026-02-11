@@ -1,6 +1,6 @@
 import { exchangeService } from '../services/_index.js';
 
-export const handleTradeRequest = (serviceMethod) => async (req, res, next) => {
+const handleTradeRequest = (serviceMethod) => async (req, res, next) => {
     try {
         const { exchangeType, environment, params } = req.body;
 
@@ -16,24 +16,23 @@ export const handleTradeRequest = (serviceMethod) => async (req, res, next) => {
 };
 
 const tradeController = {
-    handleTradeRequest,
-    newOrder,
-    modifyOrder,
-    cancelOrder,
-    cancelAllOpenOrders,
-    queryOrder,
-    queryOpenOrders,
-    queryAllOrders,
-    getPositionRisk,
-    getAccountInformation,
-    getAccountBalance,
-    changeInitialLeverage,
-    changeMarginType,
-    changePositionMode,
-    getCurrentPositionMode,
-    getIncomeHistory,
-    getFundingRateHistory,
-    getExchangeInformation
+    newOrder: handleTradeRequest('newOrder'),
+    modifyOrder: handleTradeRequest('modifyOrder'),
+    cancelOrder: handleTradeRequest('cancelOrder'),
+    cancelAllOpenOrders: handleTradeRequest('cancelAllOpenOrders'),
+    queryOrder: handleTradeRequest('queryOrder'),
+    queryOpenOrders: handleTradeRequest('queryOpenOrders'),
+    queryAllOrders: handleTradeRequest('queryAllOrders'),
+    getPositionRisk: handleTradeRequest('getPositionRisk'),
+    getAccountInformation: handleTradeRequest('getAccountInformation'),
+    getAccountBalance: handleTradeRequest('getAccountBalance'),
+    changeInitialLeverage: handleTradeRequest('changeInitialLeverage'),
+    changeMarginType: handleTradeRequest('changeMarginType'),
+    changePositionMode: handleTradeRequest('changePositionMode'),
+    getCurrentPositionMode: handleTradeRequest('getCurrentPositionMode'),
+    getIncomeHistory: handleTradeRequest('getIncomeHistory'),
+    getFundingRateHistory: handleTradeRequest('getFundingRateHistory'),
+    getExchangeInformation: handleTradeRequest('getExchangeInformation')
 };
 
 export { tradeController };

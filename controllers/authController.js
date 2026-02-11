@@ -9,9 +9,6 @@ const SESSION_INACTIVITY_LIMIT = 5 * 60 * 1000; // 5 minutes
 // Key: Token, Value: { email, lastActivity }
 export const sessionStore = new Map();
 
-/**
- * Register a new user
- */
 const register = async (req, res, next) => {
     try {
         const { name, email, password } = req.body;
@@ -44,9 +41,6 @@ const register = async (req, res, next) => {
     }
 };
 
-/**
- * Login user
- */
 const login = async (req, res, next) => {
     try {
         const { email, password } = req.body;
@@ -88,9 +82,6 @@ const login = async (req, res, next) => {
     }
 };
 
-/**
- * Reset password
- */
 const resetPassword = async (req, res, next) => {
     try {
         const { email, newPassword } = req.body;
