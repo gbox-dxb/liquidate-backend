@@ -1,12 +1,35 @@
-import { db } from './config.js';
+import { config } from './config.js';
 
 const USERS_COLLECTION = 'users';
 
-/**
- * Create a new user in Firestore
- * @param {Object} userData 
- * @returns {Promise<String>} User ID
- */
+const createUser = async (userData) => {
+    const docRef = await config.db.collection(USERS_COLLECTION).add({
+        ...userData,
+        createdAt: new Date()
+    });
+    return docRef.id;
+};
+
+const getUserByEmail = async (email) => {
+    const snapshot = await config.db.collection(USERS_COLLECTION)
+        .where('email', '==', email)
+        .limit(1)
+        .get();
+
+    if (snapshot.empty) return null;
+    return { id: snapshot.docs[0].id, ...snapshot.docs[0].data() };
+};
+
+const updateUserPassword = async (email, hashedNewPassword) => {
+    const user = await getUserByEmail(email);
+    if (!user) throw new Error('User not found');
+
+    await config.db.collection(USERS_COLLECTION).doc(user.id).update({
+        password: hashedNewPassword,
+        updatedAt: new Date()
+    });
+};
+
 const userHelpers = {
     createUser,
     getUserByEmail,
