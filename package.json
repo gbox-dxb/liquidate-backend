@@ -20,11 +20,15 @@
   "homepage": "https://github.com/gbox-dxb/liquidate-backend#readme",
   "dependencies": {
     "axios": "^1.13.5",
+    "bcrypt": "^6.0.0",
     "cors": "^2.8.6",
     "crypto-js": "^4.2.0",
     "dotenv": "^17.2.4",
     "express": "^5.2.1",
+    "express-validator": "^7.3.1",
+    "firebase-admin": "^13.6.1",
     "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.3",
     "morgan": "^1.10.1"
   }
 }

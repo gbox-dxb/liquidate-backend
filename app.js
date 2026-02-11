@@ -3,6 +3,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
+import authRoutes from './routes/auth.js';
 import routes from './routes/index.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 
@@ -18,6 +19,7 @@ app.use(morgan('dev'));
 app.use(express.json());
 
 // Routes
+app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/trade', routes);
 
 // Health check
