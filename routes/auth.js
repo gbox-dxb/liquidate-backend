@@ -1,15 +1,10 @@
 import express from 'express';
-import { body } from 'express-validator';
-import { authController } from '../controllers/_index.js';
-import { validationMiddleware, authMiddleware } from '../middlewares/_index.js';
-
 const router = express.Router();
 
-/**
- * @route   POST /api/v1/auth/register
- * @desc    Register a new user
- * @access  Public
- */
+import { authController } from '../controllers/_index.js';
+import { body } from 'express-validator';
+import { validationMiddleware, authMiddleware } from '../middlewares/_index.js';
+
 router.post(
     '/register',
     [
@@ -23,11 +18,6 @@ router.post(
     authController.register
 );
 
-/**
- * @route   POST /api/v1/auth/login
- * @desc    Authenticate user and get token
- * @access  Public
- */
 router.post(
     '/login',
     [
@@ -38,11 +28,6 @@ router.post(
     authController.login
 );
 
-/**
- * @route   POST /api/v1/auth/reset-password
- * @desc    Reset user password
- * @access  Public
- */
 router.post(
     '/reset-password',
     [
@@ -55,11 +40,7 @@ router.post(
     authController.resetPassword
 );
 
-/**
- * @route   POST /api/v1/auth/logout
- * @desc    Logout user and invalidate session
- * @access  Private
- */
+
 router.post('/logout', authMiddleware.authenticate, authController.logout);
 
 const auth = router;

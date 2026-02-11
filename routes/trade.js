@@ -1,7 +1,7 @@
 import express from 'express';
-import { tradeController } from '../controllers/_index.js';
-
 const router = express.Router();
+
+import { tradeController } from '../controllers/_index.js';
 
 // Order routes
 router.post('/order', tradeController.newOrder);
