@@ -45,8 +45,6 @@ app.get('/', (req, res) => {
 app.get('/health', (req, res) => {
     res.json({
         message: 'Server is running',
-        version: '1.0.0',
-        status: 200,
         timestamp: new Date().toISOString()
     });
 });
