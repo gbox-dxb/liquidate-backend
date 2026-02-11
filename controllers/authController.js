@@ -110,10 +110,28 @@ const resetPassword = async (req, res, next) => {
     }
 };
 
+const logout = async (req, res, next) => {
+    try {
+        const authHeader = req.headers.authorization;
+        if (authHeader && authHeader.startsWith('Bearer ')) {
+            const token = authHeader.split(' ')[1];
+            sessionStore.delete(token);
+        }
+
+        res.status(200).json({
+            success: true,
+            message: 'Logout successful'
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
 const authController = {
     sessionStore,
     register,
     login,
+    logout,
     resetPassword
 };
 
