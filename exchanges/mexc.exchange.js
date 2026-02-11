@@ -21,6 +21,11 @@ const getCredentials = () => ({
 
 /**
  * Core request handler that prepends BASE_URL and API_VERSION
+ * @param {string} method - HTTP method
+ * @param {string} path - Relative endpoint path
+ * @param {object} params - Request parameters
+ * @param {string} environment - demo or production
+ * @param {boolean} isPublic - Whether the endpoint requires signing
  */
 const sendRequest = async (method, path, params = {}, environment = 'demo') => {
     const { apiKey, apiSecret } = getCredentials();
