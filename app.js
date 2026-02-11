@@ -21,9 +21,21 @@ app.use(express.json());
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/trade', tradeRoutes);
 
-// Health check
+app.get('/', (req, res) => {
+    res.json({
+        message: 'Welcome to the Futures API',
+        version: '1.0.0',
+        status: 200,
+        timestamp: new Date().toISOString()
+    });
+});
 app.get('/health', (req, res) => {
-    res.json({ status: 'UP', timestamp: new Date().toISOString() });
+    res.json({
+        message: 'Server is running',
+        version: '1.0.0',
+        status: 200,
+        timestamp: new Date().toISOString()
+    });
 });
 
 // Error Handling
