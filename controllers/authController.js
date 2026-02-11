@@ -2,12 +2,12 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { userHelpers } from '../firestore/_index.js';
 
+
 const JWT_SECRET = process.env.JWT_SECRET || 'your_super_secret_key';
 
 
 /**
- * In-memory session store to track last activity
- * Key: Token, Value: { email, lastActivity }
+ * In-memory session store to track last activity, Key: Token, Value: { email, lastActivity }
  */
 const sessionStore = new Map();
 
