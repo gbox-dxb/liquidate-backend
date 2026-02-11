@@ -21,13 +21,23 @@ const getCredentials = () => ({
 
 /**
  * Core request handler that prepends BASE_URL and API_VERSION
+ * @param {string} method - HTTP method
+ * @param {string} path - Relative endpoint path
+ * @param {object} params - Request parameters
+ * @param {string} environment - demo or production
+ * @param {boolean} isPublic - Whether the endpoint requires signing
  */
-const sendRequest = async (method, path, params = {}, environment = 'demo') => {
-    const { apiKey, apiSecret } = getCredentials();
+const sendRequest = async (method, path, params = {}, environment = 'demo', isPublic = false) => {
     const baseUrl = BASE_URLS[environment] || BASE_URLS.demo;
-
     const fullPath = `${API_VERSION}${path}`;
 
+    if (isPublic) {
+        const queryStr = new URLSearchParams(params).toString();
+        const url = `${baseUrl}${fullPath}${queryStr ? '?' + queryStr : ''}`;
+        return await apiClient({ method, url });
+    }
+
+    const { apiKey, apiSecret } = getCredentials();
     const timestamp = Date.now();
     const queryParams = { ...params, timestamp };
     const queryStr = new URLSearchParams(queryParams).toString();
@@ -71,17 +81,14 @@ export const queryAllOrders = async (params, environment) => {
 };
 
 export const getPositionRisk = async (params, environment) => {
-    // Standardized to version controlled path
     return await sendRequest('GET', '/positionRisk', params, environment);
 };
 
 export const getAccountInformation = async (params, environment) => {
-    // Standardized to version controlled path
     return await sendRequest('GET', '/account', params, environment);
 };
 
 export const getAccountBalance = async (params, environment) => {
-    // Standardized to version controlled path
     return await sendRequest('GET', '/balance', params, environment);
 };
 
@@ -110,6 +117,5 @@ export const getFundingRateHistory = async (params, environment) => {
 };
 
 export const getExchangeInformation = async (params, environment) => {
-    const baseUrl = BASE_URLS[environment] || BASE_URLS.demo;
-    return await apiClient.get(`${baseUrl}${API_VERSION}/exchangeInfo`);
+    return await sendRequest('GET', '/exchangeInfo', params, environment, true);
 };
