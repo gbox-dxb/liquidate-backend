@@ -9,5 +9,5 @@ router.post('/login', authMiddleware.loginValidation, authController.login);
 router.post('/reset-password', authMiddleware.resetPasswordValidation, authController.resetPassword);
 router.post('/logout', authMiddleware.authenticate, authController.logout);
 
-const auth = router;
-export { auth };
+const authRoutes = router;
+export { authRoutes };

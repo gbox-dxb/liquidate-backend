@@ -31,5 +31,5 @@ router.get('/income', tradeMiddleware.infoValidation, tradeController.getIncomeH
 router.get('/funding-rate', tradeMiddleware.infoValidation, tradeController.getFundingRateHistory);
 router.get('/exchange-info', tradeMiddleware.infoValidation, tradeController.getExchangeInformation);
 
-const trade = router;
-export { trade };
+const tradeRoutes = router;
+export { tradeRoutes };

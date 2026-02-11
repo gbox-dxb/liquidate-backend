@@ -3,7 +3,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
-import { auth, trade } from './routes/_index.js';
+import { authRoutes, tradeRoutes } from './routes/_index.js';
 import { errorHandler } from './middlewares/_index.js';
 
 dotenv.config();
@@ -18,8 +18,8 @@ app.use(morgan('dev'));
 app.use(express.json());
 
 // Routes
-app.use('/api/v1/auth', auth);
-app.use('/api/v1/trade', trade);
+app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/trade', tradeRoutes);
 
 // Health check
 app.get('/health', (req, res) => {
