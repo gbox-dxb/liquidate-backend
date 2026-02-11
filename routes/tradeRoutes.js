@@ -1,8 +1,8 @@
 import express from 'express';
 const router = express.Router();
 
-import { tradeController } from '../controllers/_index.js';
 import { tradeMiddleware } from '../middlewares/_index.js';
+import { tradeController } from '../controllers/_index.js';
 
 // Order routes
 router.post('/order', tradeMiddleware.orderValidation, tradeController.newOrder);
