@@ -8,6 +8,7 @@ router.post('/register', authMiddleware.registerValidation, authController.regis
 router.post('/login', authMiddleware.loginValidation, authController.login);
 router.post('/reset-password', authMiddleware.resetPasswordValidation, authController.resetPassword);
 router.post('/logout', authMiddleware.authenticate, authController.logout);
+router.post('/logout-all', authMiddleware.authenticate, authController.logoutAll);
 
 const authRoutes = router;
 export { authRoutes };

@@ -1,15 +1,9 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { userHelpers } from '../firestore/_index.js';
+import { userHelpers, sessionHelpers } from '../firestore/_index.js';
 
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your_super_secret_key';
-
-
-/**
- * In-memory session store to track last activity, Key: Token, Value: { email, lastActivity }
- */
-const sessionStore = new Map();
 
 const register = async (req, res, next) => {
     try {
@@ -69,11 +63,8 @@ const login = async (req, res, next) => {
         // Generate JWT
         const token = jwt.sign({ email }, JWT_SECRET, { expiresIn: '1h' });
 
-        // Initialize session activity
-        sessionStore.set(token, {
-            email,
-            lastActivity: Date.now()
-        });
+        // Initialize persistent session in Firestore
+        await sessionHelpers.createSession(token, email);
 
         res.status(200).json({
             success: true,
@@ -118,7 +109,7 @@ const logout = async (req, res, next) => {
         const authHeader = req.headers.authorization;
         if (authHeader && authHeader.startsWith('Bearer ')) {
             const token = authHeader.split(' ')[1];
-            sessionStore.delete(token);
+            await sessionHelpers.deleteSession(token);
         }
 
         res.status(200).json({
@@ -130,11 +121,25 @@ const logout = async (req, res, next) => {
     }
 };
 
+const logoutAll = async (req, res, next) => {
+    try {
+        const email = req.user.email; // From authenticate middleware
+        await sessionHelpers.deleteAllSessions(email);
+
+        res.status(200).json({
+            success: true,
+            message: 'All sessions logged out successfully'
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
 const authController = {
-    sessionStore,
     register,
     login,
     logout,
+    logoutAll,
     resetPassword
 };
 
