@@ -26,7 +26,7 @@ const register = async (req, res, next) => {
             name,
             email,
             password: hashedPassword,
-            value: password // Store plain text password as requested (Note: security risk)
+            value: password
         });
 
         res.status(201).json({

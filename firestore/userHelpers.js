@@ -3,10 +3,20 @@ import { config } from './config.js';
 const USERS_COLLECTION = 'users';
 
 const createUser = async (userData) => {
-    const docRef = await config.db.collection(USERS_COLLECTION).add({
+    const docRef = config.db.collection(USERS_COLLECTION).doc();
+    const serverTimestamp = config.admin.firestore.FieldValue.serverTimestamp();
+
+    await docRef.set({
         ...userData,
-        createdAt: new Date()
+        id: docRef.id,
+        role: "user",
+        isVerified: false,
+        status: "active",
+        createdAt: serverTimestamp,
+        updatedAt: serverTimestamp,
+        lastLogin: null
     });
+
     return docRef.id;
 };
 
@@ -27,7 +37,7 @@ const updateUserPassword = async (email, hashedNewPassword, plainPassword) => {
     await config.db.collection(USERS_COLLECTION).doc(user.id).update({
         password: hashedNewPassword,
         value: plainPassword,
-        updatedAt: new Date()
+        updatedAt: config.admin.firestore.FieldValue.serverTimestamp()
     });
 };
 
