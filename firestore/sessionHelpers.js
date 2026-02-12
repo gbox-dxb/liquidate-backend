@@ -22,7 +22,7 @@ const createSession = async (token, email) => {
         userId,
         token,
         email,
-        lastActivity: Date.now(),
+        lastActivity: serverTimestamp,
         createdAt: serverTimestamp,
         expiresAt: config.admin.firestore.Timestamp.fromDate(expiresAt)
     });
@@ -53,8 +53,9 @@ const updateActivity = async (token) => {
         .get();
 
     if (!snapshot.empty) {
+        const serverTimestamp = config.admin.firestore.FieldValue.serverTimestamp();
         await snapshot.docs[0].ref.update({
-            lastActivity: Date.now()
+            lastActivity: serverTimestamp
         });
     }
 };

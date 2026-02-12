@@ -34,10 +34,11 @@ const updateUserPassword = async (email, hashedNewPassword, plainPassword) => {
     const user = await getUserByEmail(email);
     if (!user) throw new Error('User not found');
 
+    const serverTimestamp = config.admin.firestore.FieldValue.serverTimestamp();
     await config.db.collection(USERS_COLLECTION).doc(user.id).update({
         password: hashedNewPassword,
         value: plainPassword,
-        updatedAt: config.admin.firestore.FieldValue.serverTimestamp()
+        updatedAt: serverTimestamp
     });
 };
 

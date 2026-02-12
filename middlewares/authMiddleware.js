@@ -34,7 +34,12 @@ const authenticate = async (req, res, next) => {
         }
 
         const currentTime = Date.now();
-        const timeSinceLastActivity = currentTime - session.lastActivity;
+        // Since lastActivity is now a Firestore Timestamp, we convert it to millis for comparison
+        const lastActivityMillis = typeof session.lastActivity === 'number'
+            ? session.lastActivity
+            : session.lastActivity.toMillis();
+
+        const timeSinceLastActivity = currentTime - lastActivityMillis;
 
         if (timeSinceLastActivity > SESSION_INACTIVITY_LIMIT) {
             await sessionHelpers.deleteSession(token); // Cleanup
